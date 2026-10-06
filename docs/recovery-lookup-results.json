@@ -1,0 +1,20 @@
+{
+  "daemon_restarted": true,
+  "strategy": "unique branch session lookup, no spawn replay",
+  "results": [
+    {
+      "task": "TASK-001",
+      "original_session": "portable-demo-1",
+      "found_session": "portable-demo-1",
+      "same_session": true,
+      "spawn_requests_sent": 0
+    },
+    {
+      "task": "TASK-002",
+      "original_session": "portable-demo-2",
+      "found_session": "portable-demo-2",
+      "same_session": true,
+      "spawn_requests_sent": 0
+    }
+  ]
+}

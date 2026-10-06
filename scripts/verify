@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+import subprocess
+import sys
+from pathlib import Path
+
+root = Path(__file__).resolve().parent.parent
+for command in ([sys.executable, "scripts/architecture_check"],
+                [sys.executable, "scripts/factory", "validate"],
+                [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-v"]):
+    subprocess.run(command, cwd=root, check=True)

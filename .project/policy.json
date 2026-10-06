@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "routing": {
+    "cheap": {
+      "harness": "codex"
+    },
+    "standard": {
+      "harness": "codex"
+    },
+    "strong": {
+      "harness": "claude-code"
+    },
+    "review": {
+      "harness": "codex"
+    }
+  },
+  "limits": {
+    "context_bytes": 12000,
+    "attempts": 3,
+    "diagnostics": 1,
+    "task_seconds": 900,
+    "verify_seconds": 120
+  },
+  "observed_budget": {
+    "input_tokens": 1000000,
+    "estimated_cost_usd": 1.0
+  },
+  "ao": {
+    "mode": "chat",
+    "permission": "accept-edits"
+  },
+  "verification": [
+    [
+      "./scripts/verify"
+    ]
+  ],
+  "verification_isolation": "bubblewrap",
+  "publish": true,
+  "auto_merge": true,
+  "github": {
+    "repo": "Whidge/AO",
+    "base": "main",
+    "required_checks": [
+      "verify"
+    ],
+    "require_protection": true
+  }
+}

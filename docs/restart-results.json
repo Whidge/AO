@@ -1,0 +1,19 @@
+{
+  "daemon_restarted": true,
+  "replay_results": [
+    {
+      "task": "TASK-001",
+      "original_session": "portable-demo-1",
+      "replayed_session": "portable-demo-3",
+      "same_session": false,
+      "state_in_git": "MERGED"
+    },
+    {
+      "task": "TASK-002",
+      "original_session": "portable-demo-2",
+      "replayed_session": "portable-demo-4",
+      "same_session": false,
+      "state_in_git": "MERGED"
+    }
+  ]
+}

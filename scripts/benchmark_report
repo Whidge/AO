@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+"""Export aggregate measurements without raw conversations or LLM reporting."""
+import argparse
+import json
+import os
+from pathlib import Path
+import subprocess
+from factorylib.protocol import atomic_json, load_state, read_json
+
+p = argparse.ArgumentParser()
+p.add_argument("--root", required=True)
+p.add_argument("--output", required=True)
+a = p.parse_args()
+root = Path(a.root).resolve()
+paths = subprocess.run(["git", "ls-files", "-z"], cwd=root, check=True, capture_output=True).stdout.split(b"\0")
+naive_bytes = 0
+for path in paths:
+    if path:
+        source = root / path.decode()
+        data = os.readlink(source).encode() if source.is_symlink() else source.read_bytes()
+        try:
+            data.decode()
+        except UnicodeDecodeError:
+            continue
+        naive_bytes += len(data) + len(path) + 2
+tasks = []
+for path in sorted((root / ".factory-runtime").glob("TASK-*.json")):
+    if path.stem.endswith("-review"):
+        continue
+    receipt = read_json(path)
+    task_id = path.stem
+    state = load_state(root, task_id)
+    response = receipt.get("response", {})
+    injected = receipt.get("capsule", {}).get("bytes")
+    tasks.append({"task": task_id, "result": state["status"], "attempts": state["attempts"],
+                  "worker_context_bytes": injected, "ao_system_bytes": response.get("systemPromptBytes"),
+                  "worker_usage": receipt.get("ao_usage", {}).get("totals"),
+                  "review_context_bytes": state.get("review", {}).get("context_bytes"),
+                  "review_usage": state.get("review", {}).get("usage"),
+                  "naive_full_repo_injection_bytes": naive_bytes,
+                  "injection_reduction_percent": round(100 * (1 - injected/naive_bytes), 2) if injected and naive_bytes else None,
+                  "measurement_limit": "Injection-size comparison only; naive harness was not run, so billed token savings are unproven."})
+live = []
+event_paths = list((root / ".factory-runtime/live").glob("*.jsonl"))
+event_paths += [root / ".factory-runtime" / "codex-discovery.jsonl", root / ".factory-runtime" / "claude-discovery.json"]
+for path in sorted(p for p in event_paths if p.exists()):
+    # Never export provider final responses, tool inputs, stderr, transcripts or credentials.
+    from factorylib.protocol import usage
+    events = []
+    for line in path.read_text().splitlines():
+        try:
+            events.append(json.loads(line))
+        except json.JSONDecodeError:
+            pass
+    harness = "claude-code" if any(e.get("type") == "result" for e in events) else "codex"
+    live.append({"run_id": path.stem, "harness": harness, "usage": usage(events, harness),
+                 "result": next((e.get("subtype") for e in events if e.get("type") == "result"),
+                                "success" if any(e.get("type") == "turn.completed" for e in events) else "unknown")})
+report = {"version": 1, "tasks": tasks, "live_cli_runs": live,
+          "comparability": "Providers used their configured defaults; this is portability evidence, not a controlled model-quality or cost ranking."}
+atomic_json(Path(a.output), report)
+print(json.dumps({"tasks": len(tasks), "live_runs": len(live), "output": a.output}, indent=2))

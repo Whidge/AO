@@ -1,0 +1,9 @@
+{
+  "release": "v0.13.3",
+  "asset": "agent-orchestrator-linux-x64.deb",
+  "url": "https://github.com/OrchestratorInc/agent-orchestrator/releases/download/v0.13.3/agent-orchestrator-linux-x64.deb",
+  "official_digest": "sha256:94ca691e4adc227f21a3ea0488b18f0ed3681894a286f150993c7c2d015b367a",
+  "download_sha256": "94ca691e4adc227f21a3ea0488b18f0ed3681894a286f150993c7c2d015b367a",
+  "binary_sha256": "b10cdcd152787ad2b015248c526c12681b18fe474132411f6804121926b10708",
+  "upstream_commit": "22542788e705e2031a4fce7085fbe173d118e073"
+}

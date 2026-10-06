@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+factory_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+export AO_RUN_FILE="${AO_RUN_FILE:-$factory_root/../.runtime/ao/running.json}"
+ao_binary="${AO_BINARY:-$factory_root/../.runtime/bin/ao}"
+exec "$ao_binary" "$@"

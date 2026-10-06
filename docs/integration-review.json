@@ -1,0 +1,28 @@
+{
+  "run_id": "a8f1a0d956894fb3939fd7beefdd077c",
+  "harness": "codex",
+  "role": "review",
+  "returncode": 0,
+  "timed_out": false,
+  "provider_errors": [],
+  "permission_denials": [],
+  "passed": true,
+  "duration_seconds": 49.584,
+  "context_bytes": 704,
+  "usage": {
+    "input_tokens": 183071,
+    "cached_input_tokens": 146432,
+    "output_tokens": 1507,
+    "cost_usd": null
+  },
+  "sha": "0640b9001dd485c139103c0998e79e1d1884430c",
+  "review": {
+    "verdict": "changes_requested",
+    "findings": [
+      "scripts/factorylib/protocol.py:343-355: Verification executes worker-controlled repository programs directly on the controller host without sandboxing. A scoped change to an imported module or test can modify controller files, access credentials, or perform external actions before review; the subsequent HEAD/dirty checks cannot contain those effects.",
+      "scripts/factorylib/protocol.py:199-205,270-271: Automatic commit approval checks the working tree against base but never checks the staged tree. A protected-file change staged in the index and reversed in the working tree disappears from scope_check, yet 'git commit -m ...' is approved and commits that protected change.",
+      "scripts/factorylib/cli.py:201-234,249-260: Restarting in VERIFYING still requires the worker session to report idle, although the controller already called exit_agent. If the stopped session reports another activity or becomes unavailable, verification cannot resume and the task stalls or hits its worker deadline. Resume VERIFYING from the recorded Git artifact independently of worker activity.",
+      "scripts/factorylib/cli.py:119-128,237-246: Retry dispatch seeds the previous checkpoint, but tick treats any checkpoint with a nonempty next field as completion failure. An initial idle observation before the new worker updates its inherited incomplete checkpoint immediately stops the retry and consumes another attempt. Require completion evidence from the current invocation before interpreting an inherited checkpoint."
+    ]
+  }
+}
