@@ -4,5 +4,6 @@
   "attempts": 1,
   "diagnostics": 0,
   "run_id": "272bdd22dc3d4174879ea4c47c735cbc",
-  "base": "4dd883955acaa00c019751fad087273da9910ecc"
+  "base": "4dd883955acaa00c019751fad087273da9910ecc",
+  "reason": "approved scoped Git/AO operation once"
 }
