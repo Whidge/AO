@@ -84,8 +84,12 @@ Native AO SCM initially returned SCM_UNAVAILABLE because the system GitHub CLI
 lacks `gh auth token`. Installing the checksum-verified official gh v2.102.0 only
 in the isolated runtime resolved authentication, using the existing login without
 copying credentials. A closed-PR claim then correctly returned PR_NOT_OPEN.
-See github-cli-provenance.json; native open-PR attachment will be checked while
-publishing final results. The GitHub adapter's live gates are independently proven.
+Native attachment of open PR #3 to the existing exited session succeeded without
+resuming its agent, changing branches or taking over another session. AO reported
+open/passing/mergeable facts; see native-scm-results.json and github-cli-provenance.json.
+The final remote suite passed 70 tests (59 protocol/gate tests plus 11 example
+acceptance tests). Init and registration also passed in a third clean smoke repo.
+The GitHub adapter's live gates are independently proven.
 
 ## Remaining boundaries
 
