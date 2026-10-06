@@ -1,11 +1,25 @@
 {
   "task": "TASK-001",
-  "status": "REVIEWING",
+  "status": "ACCEPTED",
   "attempts": 1,
   "diagnostics": 0,
   "run_id": "272bdd22dc3d4174879ea4c47c735cbc",
   "base": "4dd883955acaa00c019751fad087273da9910ecc",
   "reason": "approved scoped Git/AO operation once",
   "checkpoint_branch": "factory/task-001-272bdd22dc3d",
-  "target": "c4d8d9755c780d46816aea569b67d82fcaca0c84"
+  "target": "c4d8d9755c780d46816aea569b67d82fcaca0c84",
+  "review": {
+    "verdict": "approved",
+    "findings": [],
+    "role": "independent-reviewer",
+    "sha": "c4d8d9755c780d46816aea569b67d82fcaca0c84",
+    "run_id": "f31788b6a2b14c28b77aea55aa10d9bd",
+    "usage": {
+      "input_tokens": 52923,
+      "cached_input_tokens": 46208,
+      "output_tokens": 344,
+      "cost_usd": null
+    },
+    "context_bytes": 8153
+  }
 }
