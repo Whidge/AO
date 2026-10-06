@@ -34,7 +34,8 @@ for path in sorted((root / ".factory-runtime").glob("TASK-*.json")):
     injected = receipt.get("capsule", {}).get("bytes")
     tasks.append({"task": task_id, "result": state["status"], "attempts": state["attempts"],
                   "worker_context_bytes": injected, "ao_system_bytes": response.get("systemPromptBytes"),
-                  "worker_usage": receipt.get("ao_usage", {}).get("totals"),
+                  "worker_usage": (receipt.get("ao_usage") or {}).get("totals"),
+                  "duration_seconds": round(receipt.get("finished", receipt["started"])-receipt["started"],3) if receipt.get("started") else None,
                   "review_context_bytes": state.get("review", {}).get("context_bytes"),
                   "review_usage": state.get("review", {}).get("usage"),
                   "naive_full_repo_injection_bytes": naive_bytes,

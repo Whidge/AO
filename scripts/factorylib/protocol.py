@@ -350,9 +350,10 @@ def verification_argv(root, command, policy):
         if Path(name).exists():
             argv += ["--ro-bind", name, name]
     argv += ["--proc", "/proc", "--dev", "/dev", "--tmpfs", "/tmp",
-             "--bind", str(root), str(root), "--ro-bind", str(common), str(common),
+             "--ro-bind", str(root), str(root), "--ro-bind", str(common), str(common),
              "--setenv", "PATH", "/usr/bin:/bin", "--setenv", "HOME", "/tmp/home",
              "--setenv", "LANG", "C.UTF-8", "--setenv", "PYTHONNOUSERSITE", "1",
+             "--setenv", "PYTHONPYCACHEPREFIX", "/tmp/pycache",
              "--chdir", str(root), "--", *command]
     return argv
 

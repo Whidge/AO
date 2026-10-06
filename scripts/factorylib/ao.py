@@ -9,6 +9,18 @@ import urllib.request
 from .protocol import ProtocolError, read_json
 
 
+class LazyAO:
+    """Git-only phases must work even when the daemon/run file is absent."""
+    def __init__(self, run_file=None):
+        self.run_file = run_file
+        self.client = None
+
+    def __getattr__(self, name):
+        if self.client is None:
+            self.client = AO(self.run_file)
+        return getattr(self.client, name)
+
+
 class AO:
     def __init__(self, run_file=None):
         path = run_file or os.environ.get("AO_RUN_FILE") or str(Path.home() / ".ao/running.json")
@@ -93,10 +105,3 @@ class AO:
             raise ProtocolError("no unambiguous one-time approval offered")
         path = "sessions/" + urllib.parse.quote(session_id, safe="") + "/conversation/approvals/" + urllib.parse.quote(approval["requestId"], safe="") + "/resolve"
         return self.request("POST", path, {"decisionId": offered[0]["id"]})
-
-    def review(self, session_id, route):
-        request = {"harness": route["harness"], "source": "manual", "enableAutoInject": False}
-        controls = {k: route[k] for k in ("model", "effort") if k in route}
-        if controls:
-            request["agentConfig"] = controls
-        return self.request("POST", "sessions/" + urllib.parse.quote(session_id, safe="") + "/review/trigger", request)

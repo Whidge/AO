@@ -1,0 +1,25 @@
+{
+  "run_id": "b88e3ca12a2a4d098eaadd894cb80f07",
+  "harness": "codex",
+  "role": "review",
+  "returncode": 0,
+  "timed_out": false,
+  "provider_errors": [],
+  "permission_denials": [],
+  "passed": true,
+  "duration_seconds": 34.628,
+  "context_bytes": 615,
+  "usage": {
+    "input_tokens": 175891,
+    "cached_input_tokens": 143616,
+    "output_tokens": 846,
+    "cost_usd": null
+  },
+  "sha": "63e8043a8c8bbe82ae9db3511e20151758e99f31",
+  "review": {
+    "verdict": "changes_requested",
+    "findings": [
+      "scripts/factorylib/cli.py:555,605-606: Verification restart still requires AO initialization at both public entry points: queue and tick construct AO before reaching the AO-independent VERIFYING path. AO.__init__ reads and validates the daemon run file, so restarting after AO stops and removes that file fails before artifact verification can resume. Instantiate AO lazily only for operations requiring it. The recovery test calls tick directly with a stub and misses this CLI failure."
+    ]
+  }
+}

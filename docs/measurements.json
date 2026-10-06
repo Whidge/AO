@@ -23,6 +23,7 @@
           "providerAttribution": "observed"
         }
       },
+      "duration_seconds": 0.0,
       "review_context_bytes": 4935,
       "review_usage": {
         "input_tokens": 50654,
@@ -56,6 +57,7 @@
           "providerAttribution": "observed"
         }
       },
+      "duration_seconds": 204.959,
       "review_context_bytes": 6510,
       "review_usage": {
         "input_tokens": 75627,

@@ -22,6 +22,10 @@ class RepoFixture:
         git(self.root, "init", "-b", "main")
         git(self.root, "config", "user.name", "Protocol Test")
         git(self.root, "config", "user.email", "test@example.invalid")
+        # Fixture directories are deleted immediately; no detached Git maintenance
+        # may race their teardown on runners with different global Git defaults.
+        git(self.root, "config", "gc.auto", "0")
+        git(self.root, "config", "maintenance.auto", "false")
         self.write(".gitignore", ".factory-runtime/\n__pycache__/\n")
         self.write("AGENTS.md", "Keep domain independent. Read only task references.\n")
         self.write("docs/relevant.md", "Relevant architecture\n")
@@ -390,6 +394,16 @@ class LifecycleTest(RepoFixture, unittest.TestCase):
         result = tick(self.root, self.task, self.policy, UnavailableAO())
         self.assertEqual(result["status"], "REVIEWING")
         self.assertEqual(result["target"], state["target"])
+    def test_public_cli_verification_recovery_without_daemon_run_file(self):
+        state = self.complete_worker()
+        for command in (["tick", "TASK-001"], ["queue", "--project", "test", "--steps", "1"]):
+            state["status"] = "VERIFYING"
+            save_state(self.root, state)
+            self.commit("simulate daemon gone at public CLI")
+            result = subprocess.run([sys.executable, str(SOURCE / "scripts/factory"), "--root", str(self.root),
+                                     "--run-file", str(self.root / "missing-run-file"), *command], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(result.stdout)["status"], "REVIEWING")
     def test_inherited_incomplete_checkpoint_does_not_end_new_worker(self):
         dispatch(self.root, self.task, self.policy, self.ao, "project")
         state = load_state(self.root, "TASK-001")
