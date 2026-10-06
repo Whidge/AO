@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""Enforce protocol independence using Python imports, not prompt compliance."""
+import ast
+from pathlib import Path
+
+root = Path(__file__).resolve().parent.parent
+for path in (root / "scripts/factorylib").glob("*.py"):
+    tree = ast.parse(path.read_text(), filename=str(path))
+    if path.name == "protocol.py":
+        for node in ast.walk(tree):
+            if isinstance(node, (ast.Import, ast.ImportFrom)):
+                names = [n.name for n in node.names] if isinstance(node, ast.Import) else [node.module or ""]
+                assert not any(n.startswith(("urllib", "http", "factorylib.ao")) or n == "ao" for n in names), path
+print("architecture: passed")

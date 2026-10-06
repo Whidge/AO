@@ -1,0 +1,41 @@
+{
+  "task": "TASK-002",
+  "target": "15939dd5f3237dda83a73bad065bb9e2be6bf706",
+  "conditions": [
+    {
+      "condition": "bounded_with_relevant_artifacts",
+      "run_id": "693b677733c043438051b819b9836a7b",
+      "passed": true,
+      "context_bytes": 10919,
+      "usage": {
+        "input_tokens": 54675,
+        "cached_input_tokens": 47232,
+        "output_tokens": 293,
+        "cost_usd": null
+      },
+      "duration_seconds": 12.384,
+      "verdict": {
+        "verdict": "approved",
+        "findings": []
+      }
+    },
+    {
+      "condition": "naive_repository_dump",
+      "run_id": "7f65c13133944dd4a7e3da4c69a8db5a",
+      "passed": true,
+      "context_bytes": 90417,
+      "usage": {
+        "input_tokens": 72821,
+        "cached_input_tokens": 47616,
+        "output_tokens": 188,
+        "cost_usd": null
+      },
+      "duration_seconds": 9.726,
+      "verdict": {
+        "verdict": "approved",
+        "findings": []
+      }
+    }
+  ],
+  "limits": "One paired read-only review, same configured Codex default; cache/order and random variation are uncontrolled. No general reliability/cost claim."
+}

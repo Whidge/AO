@@ -1,0 +1,41 @@
+{
+  "task": "TASK-002",
+  "same_base_as_codex": "38501ff941f8e7452e2d70c5ff95eab005ddfd63",
+  "attempts": [
+    {
+      "run_id": "166325b4ad9a40b0bbb2ba3a9c369d59",
+      "usage": {
+        "input_tokens": null,
+        "cached_input_tokens": null,
+        "output_tokens": null,
+        "cost_usd": null
+      },
+      "result": "unknown"
+    },
+    {
+      "run_id": "4814b24f05d647fd9adfb974ecc94789",
+      "usage": {
+        "input_tokens": 22,
+        "cached_input_tokens": 308555,
+        "output_tokens": 3435,
+        "cost_usd": 0.4368025,
+        "cache_creation_input_tokens": 19654
+      },
+      "result": "success"
+    },
+    {
+      "run_id": "860fcbfd099d4f77807bea34aca30bbe",
+      "usage": {
+        "input_tokens": 24,
+        "cached_input_tokens": 329067,
+        "output_tokens": 3745,
+        "cost_usd": 0.4785385,
+        "cache_creation_input_tokens": 22026
+      },
+      "result": "error_max_turns"
+    }
+  ],
+  "artifact": "ade3268e2323a275bbd97b4b003a367850186e1b",
+  "verification_tests": 15,
+  "independent_review": "claude-portability-review.json"
+}

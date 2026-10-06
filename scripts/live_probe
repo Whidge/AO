@@ -1,0 +1,32 @@
+#!/usr/bin/env python3
+"""Explicit opt-in live harness test; never runs as part of deterministic verify."""
+import argparse
+import json
+from pathlib import Path
+from factorylib.harness import run
+from factorylib.protocol import atomic_json, capsule, load_policy, load_task, resolve_sha
+
+p = argparse.ArgumentParser()
+p.add_argument("--root", required=True)
+p.add_argument("--provider", required=True, choices=("codex", "claude-code"))
+p.add_argument("--task", default="TASK-001")
+p.add_argument("--role", choices=("discovery", "checkpoint", "worker"), default="discovery")
+p.add_argument("--seconds", type=int, default=180)
+a = p.parse_args()
+root = Path(a.root).resolve()
+task, policy = load_task(root, a.task), load_policy(root)
+base = resolve_sha(root, "HEAD")
+context = capsule(root, task, policy, base=base)
+prompt = context["text"]
+role = "worker"
+if a.role == "discovery":
+    role = "discovery"
+    prompt = "Read AGENTS.md, " + f".project/tasks/{a.task}.json" + ". Discover task-implementation skill. Make no edits. Return task id, canonical rule path and skill path as JSON."
+elif a.role == "checkpoint":
+    prompt += f"\nThis invocation is a controlled handoff test: implement the core function and happy-path test only. Run ./scripts/verify, then ./scripts/factory checkpoint {a.task} --base {base} --next 'add edge-case tests and complete acceptance'. Commit src/slug.py, tests/test_slug.py and .project/checkpoints/{a.task}.json with git add and git commit. Use the ./scripts executables directly, without a Python prefix. Stop at the checkpoint; a fresh different provider will continue from Git. Do not implement TASK-002.\n"
+else:
+    prompt += f"\nUse the ./scripts executables directly. After ./scripts/verify, run ./scripts/factory checkpoint {a.task} --base {base} --next ''. Commit only the declared scope and .project/checkpoints/{a.task}.json using git add and git commit. No publication.\n"
+result = run(root, {"harness": a.provider}, prompt, role, a.seconds)
+atomic_json(root / ".factory-runtime" / f"{a.provider}-{a.role}-result.json", result)
+print(json.dumps({k:v for k,v in result.items() if k not in ("events_path", "final")}, indent=2))
+raise SystemExit(0 if result["passed"] else 1)

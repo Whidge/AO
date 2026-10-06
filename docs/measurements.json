@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "task": "TASK-001",
+      "result": "MERGED",
+      "attempts": 1,
+      "worker_context_bytes": 2645,
+      "ao_system_bytes": 12517,
+      "worker_usage": {
+        "inputTokens": 333911,
+        "cachedInputTokens": 315008,
+        "uncachedInputTokens": 18903,
+        "outputTokens": 2427,
+        "processedTokens": 336338,
+        "cacheReadTokens": 315008,
+        "estimatedCost": {
+          "totalNanos": 93576800,
+          "inputNanos": 37806000,
+          "cachedInputNanos": 31500800,
+          "outputNanos": 24270000,
+          "coverage": "complete",
+          "providerAttribution": "observed"
+        }
+      },
+      "review_context_bytes": 4935,
+      "review_usage": {
+        "input_tokens": 50654,
+        "cached_input_tokens": 40832,
+        "output_tokens": 326,
+        "cost_usd": null
+      },
+      "naive_full_repo_injection_bytes": 81060,
+      "injection_reduction_percent": 96.74,
+      "measurement_limit": "Injection-size comparison only; naive harness was not run, so billed token savings are unproven."
+    },
+    {
+      "task": "TASK-002",
+      "result": "MERGED",
+      "attempts": 1,
+      "worker_context_bytes": 2474,
+      "ao_system_bytes": 12517,
+      "worker_usage": {
+        "inputTokens": 337836,
+        "cachedInputTokens": 300288,
+        "uncachedInputTokens": 37548,
+        "outputTokens": 2732,
+        "processedTokens": 340568,
+        "cacheReadTokens": 300288,
+        "estimatedCost": {
+          "totalNanos": 132444800,
+          "inputNanos": 75096000,
+          "cachedInputNanos": 30028800,
+          "outputNanos": 27320000,
+          "coverage": "complete",
+          "providerAttribution": "observed"
+        }
+      },
+      "review_context_bytes": 6510,
+      "review_usage": {
+        "input_tokens": 75627,
+        "cached_input_tokens": 58880,
+        "output_tokens": 388,
+        "cost_usd": null
+      },
+      "naive_full_repo_injection_bytes": 81060,
+      "injection_reduction_percent": 96.95,
+      "measurement_limit": "Injection-size comparison only; naive harness was not run, so billed token savings are unproven."
+    }
+  ],
+  "live_cli_runs": [
+    {
+      "run_id": "claude-discovery",
+      "harness": "claude-code",
+      "usage": {
+        "input_tokens": 4,
+        "cached_input_tokens": 30158,
+        "output_tokens": 481,
+        "cost_usd": 0.179374,
+        "cache_creation_input_tokens": 15225
+      },
+      "result": "success"
+    },
+    {
+      "run_id": "codex-discovery",
+      "harness": "codex",
+      "usage": {
+        "input_tokens": 29944,
+        "cached_input_tokens": 26752,
+        "output_tokens": 158,
+        "cost_usd": null
+      },
+      "result": "success"
+    },
+    {
+      "run_id": "5c70f3aa839542aaa237c5e158f4ac19",
+      "harness": "claude-code",
+      "usage": {
+        "input_tokens": 24,
+        "cached_input_tokens": 356049,
+        "output_tokens": 3372,
+        "cost_usd": 0.5192245000000001,
+        "cache_creation_input_tokens": 25678
+      },
+      "result": "error_max_turns"
+    },
+    {
+      "run_id": "b121bc92f39f47b88de600dda724513c",
+      "harness": "claude-code",
+      "usage": {
+        "input_tokens": 24,
+        "cached_input_tokens": 362460,
+        "output_tokens": 3857,
+        "cost_usd": 0.502815,
+        "cache_creation_input_tokens": 22504
+      },
+      "result": "success"
+    }
+  ],
+  "comparability": "Providers used their configured defaults; this is portability evidence, not a controlled model-quality or cost ranking."
+}

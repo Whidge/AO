@@ -1,0 +1,72 @@
+{
+  "results": [
+    {
+      "task": "TASK-001",
+      "verification": {
+        "sha": "690c62e68e4e9338a79716f375293a6e4d8bd9f4",
+        "passed": true,
+        "targeted": false,
+        "dirty": false,
+        "isolation": "bubblewrap",
+        "commands": [
+          {
+            "argv": [
+              "python3",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "tests",
+              "-p",
+              "test_slug.py"
+            ],
+            "returncode": 0,
+            "output_hash": "45b1851eaa30f11140bc7f44b74e4f5c548ebe2a7a24aa9947f30bf1e2bcf153"
+          },
+          {
+            "argv": [
+              "./scripts/verify"
+            ],
+            "returncode": 0,
+            "output_hash": "8e68f7f51ad49bd2e482b9aa86ccb4cbeedf8678574eeba79b2f188f2a96fcb6"
+          }
+        ],
+        "seconds": 0.147
+      }
+    },
+    {
+      "task": "TASK-002",
+      "verification": {
+        "sha": "690c62e68e4e9338a79716f375293a6e4d8bd9f4",
+        "passed": true,
+        "targeted": false,
+        "dirty": false,
+        "isolation": "bubblewrap",
+        "commands": [
+          {
+            "argv": [
+              "python3",
+              "-m",
+              "unittest",
+              "discover",
+              "-s",
+              "tests",
+              "-p",
+              "test_slug.py"
+            ],
+            "returncode": 0,
+            "output_hash": "72f09eca554e87a45b7156c6109520cf15e8b6ec157dc5c033610649b49b8698"
+          },
+          {
+            "argv": [
+              "./scripts/verify"
+            ],
+            "returncode": 0,
+            "output_hash": "8e68f7f51ad49bd2e482b9aa86ccb4cbeedf8678574eeba79b2f188f2a96fcb6"
+          }
+        ],
+        "seconds": 0.146
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "TASK-001",
+  "title": "Add a controlled portable slug example",
+  "goal": "Provide a tiny standard-library slug function and tests as a live AO PR pipeline example.",
+  "acceptance": [
+    "slugify accepts a string and returns lowercase ASCII alphanumeric words joined by single hyphens",
+    "Leading and trailing punctuation produce no leading or trailing hyphen",
+    "All punctuation or empty input returns an empty string",
+    "Non-string input raises TypeError",
+    "Automated tests cover these cases"
+  ],
+  "scope": [
+    "examples/slug.py",
+    "tests/test_example_slug.py"
+  ],
+  "references": [
+    "ARCHITECTURE.md"
+  ],
+  "skills": [
+    "task-implementation"
+  ],
+  "constraints": [
+    "Python standard library only",
+    "No changes to factory tooling, policy or verification"
+  ],
+  "verification": [
+    [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_example_slug.py"
+    ]
+  ],
+  "risk": "cheap"
+}

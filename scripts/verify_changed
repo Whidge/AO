@@ -1,0 +1,7 @@
+#!/usr/bin/env python3
+"""Contract-targeted checks. Full verify remains required before review."""
+import sys
+from factorylib.cli import main
+
+if __name__ == "__main__":
+    main(["verify", *sys.argv[1:], "--targeted"])
