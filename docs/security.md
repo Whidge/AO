@@ -29,9 +29,15 @@ GitHub publication includes only curated source, protocol and aggregate reports.
 
 Controller artifact checks now use Bubblewrap by default. The process gets no
 network, home directory or provider environment; only /usr, /bin, /lib, /lib64,
-temporary /tmp, minimal /dev and /proc, and the worktree are mounted. Shared Git
+temporary /tmp, minimal /dev and /proc, and the read-only worktree are mounted. Shared Git
 metadata is mounted read-only. Missing bwrap or namespace permissions fail the
 check. Explicit trusted-local is reserved for known trusted test fixtures and is
 never selected automatically. A runtime requiring files outside these mounts must
 be provisioned deliberately. Workers still need their own OS containment; a safe
 verifier cannot contain an unrestricted worker.
+
+Verifier output belongs in ephemeral /tmp. Python cache reads/writes use an
+ephemeral prefix, so ignored bytecode cannot be planted in controller source.
+Builds that require checkout writes need an adapted verify command or a reviewed
+disposable container setup. The controller waits for required CI on the merged
+main SHA before continuing; the workflow must run on push as well as PR.

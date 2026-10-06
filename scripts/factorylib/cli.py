@@ -12,7 +12,7 @@ import sys
 import time
 import uuid
 
-from .ao import AO
+from .ao import AO, LazyAO
 from .github import GitHub
 from .harness import review_json, run as run_harness
 from .protocol import (ProtocolError, atomic_json, capsule, checkpoint, exceeded_observed_budget, fail, git,
@@ -423,17 +423,23 @@ def remote_step(root, task, policy):
         result = host.merge(number, state["target"], state["checkpoint_branch"]) if policy["auto_merge"] else host.gate(number, state["target"], state["checkpoint_branch"])
         if not result.get("merged"):
             return {**state, "remote_observation": result}
-        git(root, "fetch", "origin", host.base)
-        merge_sha = resolve_sha(root, result["merge_sha"])
-        if subprocess.run(["git", "merge-base", "--is-ancestor", merge_sha, "FETCH_HEAD"], cwd=root).returncode:
-            raise ProtocolError("merged PR is absent from fetched base")
-        git(root, "merge", "--no-edit", "FETCH_HEAD")
-        evidence = verify(root, task, policy)
-        if not evidence["passed"]:
-            raise ProtocolError("post-merge verification failed")
-        state.update(status="MERGED", remote_merge_sha=merge_sha)
+        if state.get("remote_merge_sha") != result["merge_sha"]:
+            git(root, "fetch", "origin", host.base)
+            merge_sha = resolve_sha(root, result["merge_sha"])
+            if subprocess.run(["git", "merge-base", "--is-ancestor", merge_sha, "FETCH_HEAD"], cwd=root).returncode:
+                raise ProtocolError("merged PR is absent from fetched base")
+            git(root, "merge", "--no-edit", "FETCH_HEAD")
+            evidence = verify(root, task, policy)
+            if not evidence["passed"]:
+                raise ProtocolError("post-merge verification failed")
+            state["remote_merge_sha"] = merge_sha
+        main_checks = host.checks(state["remote_merge_sha"])
         receipt["remote_merge"] = result
         atomic_json(receipt_path, receipt)
+        if not main_checks["ready"]:
+            persist(root, state)
+            return {**state, "remote_observation": main_checks}
+        state["status"] = "MERGED"
     except (ProtocolError, subprocess.TimeoutExpired) as exc:
         state["blocked_status"] = state["status"]
         state = fail(state, policy, f"remote lifecycle: {exc}", human=True)
@@ -552,9 +558,10 @@ def main(argv=None):
             if not 1 <= args.steps <= 10000 or not 1 <= args.interval <= 60:
                 raise ProtocolError("queue requires 1..10000 steps and 1..60 second interval")
             validate(root)
-            ao = AO(args.run_file)
+            ao = LazyAO(args.run_file)
             previous = None
             for step in range(args.steps):
+                policy = load_policy(root)
                 with lock(root):
                     result = queue_step(root, policy, ao, args.project, args.local_merge, args.pause_after_milestone)
                 if result != previous:
@@ -603,7 +610,7 @@ def main(argv=None):
                 elif args.command == "recover":
                     output(recover(root, task, AO(args.run_file)))
                 elif args.command == "tick":
-                    output(tick(root, task, policy, AO(args.run_file)))
+                    output(tick(root, task, policy, LazyAO(args.run_file)))
                 elif args.command == "review-record":
                     output(record_review(root, task, policy, args.file))
                 elif args.command == "review-run":

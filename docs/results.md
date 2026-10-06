@@ -5,7 +5,7 @@
 - Upstream AO source and packaged Linux release audited before implementation;
   source remains clean at 22542788e705e2031a4fce7085fbe173d118e073. **No AO source
   modifications or fork.** See audit.md and ao-provenance.json.
-- External protocol passes 58 deterministic tests using real temporary Git
+- External protocol passes 59 deterministic tests using real temporary Git
   repositories, branches/worktrees and subprocess verification. Transport fixtures
   cover failed delivery, unknown signals and GitHub gates without external writes.
 - Codex and Claude both discovered canonical rules, the task and implementation
@@ -52,14 +52,30 @@ success. The final queue operates serially and requires no LLM status checker.
 
 ## Remote test
 
-The user selected the empty private repository https://github.com/Whidge/AO.
-A minimal main baseline was initialized. GitHub returns HTTP 403 for protected
-branches: this account needs GitHub Pro or a public repository for that feature.
-The user then deleted that repository to resolve inherited Git author metadata,
-and recreated Whidge/AO as public. New commits use Whidge with the verified
-GitHub noreply address. Public-repository protection and the remote test are next.
-Host protection will not be claimed unless actually enabled and verified.
-Remote evidence will be recorded in remote-results.json after the live run.
+The first selected repository was private and had no branch-protection entitlement.
+After an inherited Git author issue, the user deleted it and recreated Whidge/AO
+as public. Authentication was verified as Whidge; all published commits use Whidge
+with 174260058+Whidge@users.noreply.github.com. The old private repository received
+only its initial baseline before deletion, not integration code or transcripts.
+
+Public main now requires `verify`, up-to-date branches and admin enforcement;
+force pushes/deletion are disabled. A real fresh AO Codex worker completed the
+example task, passed isolated full verification and a fresh artifact review, then
+PR #1 passed branch and PR CI and merged through the atomic exact-SHA gate. Post-
+merge local validation passed. Its main CI then exposed a fixture cleanup race
+(background Git maintenance); temporary fixture repos now disable that maintenance.
+The final queue additionally waits for merged-head CI before continuing.
+
+Independent integration reviews found and verified fixes for staged-index scope,
+inherited retry checkpoint handling, public CLI recovery without AO/run-file, and
+persistent verifier cache writes. The final review approved commit d60de6a4279868a41d91f18a3108a2bb72f2ba84.
+Verification now mounts the checkout and Git metadata read-only, with no home or
+network and an ephemeral Python cache. Boundary probes and both demo contracts
+pass; see verification-boundaries.json. Build output must go to /tmp or a reviewed
+disposable container setup. Test details and failed reviews remain recorded.
+
+A second protected remote task will deliver the final fixes and exercise merged-
+head CI gating. Aggregate remote evidence is in remote-results.json.
 
 ## Remaining boundaries
 

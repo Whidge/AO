@@ -24,7 +24,7 @@ Use explicit scope paths and cheap task checks. Avoid duplicating full-suite che
 inside every contract; the controller runs the canonical checks afterwards.
 
 Install Bubblewrap for isolated controller verification (Linux). Tests have no
-network/home access; only system runtimes and the checkout are mounted. Projects
+network/home access; only system runtimes and the read-only checkout are mounted. Projects
 requiring custom runtimes need a reviewed containment setup. Do not switch to
 trusted-local as an automatic fallback.
 
@@ -84,3 +84,9 @@ but other writers can bypass it; it must not be described as host protection.
 
 This GitHub adapter uses the installed gh CLI and the same host facts tracked by
 AO. GitLab automation is left to native AO until an equivalent adapter is tested.
+
+Verifier output belongs in ephemeral /tmp. Python cache reads/writes use an
+ephemeral prefix, so ignored bytecode cannot be planted in controller source.
+Builds that require checkout writes need an adapted verify command or a reviewed
+disposable container setup. The controller waits for required CI on the merged
+main SHA before continuing; the workflow must run on push as well as PR.

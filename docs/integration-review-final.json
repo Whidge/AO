@@ -1,0 +1,25 @@
+{
+  "run_id": "078ce86de508477f9dd2e7f1b7b3fe2c",
+  "harness": "codex",
+  "role": "review",
+  "returncode": 0,
+  "timed_out": false,
+  "provider_errors": [],
+  "permission_denials": [],
+  "passed": true,
+  "duration_seconds": 48.525,
+  "context_bytes": 629,
+  "usage": {
+    "input_tokens": 154416,
+    "cached_input_tokens": 126336,
+    "output_tokens": 1274,
+    "cost_usd": null
+  },
+  "sha": "c6f8aa465ac454ea0a833a9e7f4dafffcacf4ecd",
+  "review": {
+    "verdict": "changes_requested",
+    "findings": [
+      "scripts/factorylib/protocol.py:353-354,376-380: Bubblewrap mounts the entire checkout writable, while verification checks only HEAD and Git-visible dirtiness. During post-merge verification of the controller checkout, worker-controlled tests can plant ignored scripts/factorylib/__pycache__/*.pyc files with valid source timestamps and sizes. Verification can pass with clean Git state, and the next factory invocation imports the poisoned bytecode outside Bubblewrap, enabling controller-host code execution. Verify in a disposable checkout and prevent verifier writes from reaching controller code, caches, or runtime state; read-only Git metadata does not close this escape."
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "run_id": "f27e5a9b5e08405792837b3615c85ba0",
+  "harness": "codex",
+  "role": "review",
+  "returncode": 0,
+  "timed_out": false,
+  "provider_errors": [],
+  "permission_denials": [],
+  "passed": true,
+  "duration_seconds": 24.682,
+  "context_bytes": 556,
+  "usage": {
+    "input_tokens": 174663,
+    "cached_input_tokens": 142592,
+    "output_tokens": 577,
+    "cost_usd": null
+  },
+  "sha": "d60de6a4279868a41d91f18a3108a2bb72f2ba84",
+  "review": {
+    "verdict": "approved",
+    "findings": []
+  }
+}

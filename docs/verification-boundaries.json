@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "isolation": "bubblewrap",
+  "credential_mounts_absent": true,
+  "provider_environment_absent": true,
+  "checkout_and_git_readonly": true,
+  "bytecode_cache_ephemeral": true,
+  "host_network_unreachable": true
+}

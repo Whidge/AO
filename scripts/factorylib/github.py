@@ -84,6 +84,10 @@ class GitHub:
             raise ProtocolError("PR conflicts with base; fresh verification/review required")
         if pr.get("mergeable") is None:
             return {"ready": False, "reason": "GitHub computing mergeability"}
+        checks = self.checks(target)
+        return {**checks, "url": pr["html_url"]}
+
+    def checks(self, target):
         # Both check-runs and legacy statuses are supported. All matching runs must
         # finish successfully, including push and PR runs on this exact head.
         runs = self.api(f"commits/{target}/check-runs?per_page=100")
@@ -102,9 +106,7 @@ class GitHub:
                 raise ProtocolError(f"required CI failed: {name}")
             if not values or any(v != "success" for v in values):
                 return {"ready": False, "reason": f"await required CI: {name}"}
-        # Re-read immediately before PUT; the server's sha argument is the final
-        # atomic guard against a changed PR head. Never use an admin bypass.
-        return {"ready": True, "sha": target, "checks": self.required, "url": pr["html_url"]}
+        return {"ready": True, "sha": target, "checks": self.required}
 
     def merge(self, number, target, branch):
         gate = self.gate(number, target, branch)

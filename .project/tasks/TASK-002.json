@@ -1,0 +1,42 @@
+{
+  "id": "TASK-002",
+  "title": "Add bounded slug length",
+  "goal": "Add optional maximum slug length without changing default behavior.",
+  "acceptance": [
+    "slugify accepts optional positive integer max_length",
+    "Truncated output respects maximum length and has no trailing hyphen",
+    "Omitted max_length preserves TASK-001 behavior",
+    "Non-positive, boolean or non-integer max_length raises ValueError",
+    "Tests cover limits and existing behavior"
+  ],
+  "scope": [
+    "examples/slug.py",
+    "tests/test_example_slug.py"
+  ],
+  "references": [
+    "ARCHITECTURE.md"
+  ],
+  "skills": [
+    "task-implementation"
+  ],
+  "constraints": [
+    "Python standard library only",
+    "No changes to factory tooling, policy or verification"
+  ],
+  "verification": [
+    [
+      "python3",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_example_slug.py"
+    ]
+  ],
+  "depends_on": [
+    "TASK-001"
+  ],
+  "risk": "cheap"
+}

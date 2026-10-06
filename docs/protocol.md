@@ -149,7 +149,7 @@ Claude's allowed tools/auto classifier are not OS containment. Use a container/V
 and controlled egress for unattended Claude/Cursor/Grok where native isolation is
 unavailable. Never use bypass flags. Keep auth outside repo/logs, restrict project
 shell tools, and gate destructive commands externally. Controller verification defaults to Bubblewrap: no network or home mounts,
-only system runtimes and the worktree, with shared Git metadata read-only. It never
+only system runtimes and the read-only worktree, with shared Git metadata read-only. It never
 falls back to host execution if isolation is unavailable. Install bwrap or stop for
 human setup. Explicit `verification_isolation:"trusted-local"` is for trusted
 fixtures only. Reviewers inspect evidence without executing untrusted PR code.
@@ -161,3 +161,9 @@ as COMMENT (same-author accounts cannot APPROVE their own PR). Protect merges wi
 the exact head, required CI and policy approval; `publish`/`auto_merge` are false by
 default and are not silently enabled by the local helpers. AO owns PR maintenance;
 remote merge needs a configured repository, permissions and passing exact-head checks.
+
+Verifier output belongs in ephemeral /tmp. Python cache reads/writes use an
+ephemeral prefix, so ignored bytecode cannot be planted in controller source.
+Builds that require checkout writes need an adapted verify command or a reviewed
+disposable container setup. The controller waits for required CI on the merged
+main SHA before continuing; the workflow must run on push as well as PR.
