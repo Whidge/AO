@@ -74,8 +74,18 @@ network and an ephemeral Python cache. Boundary probes and both demo contracts
 pass; see verification-boundaries.json. Build output must go to /tmp or a reviewed
 disposable container setup. Test details and failed reviews remain recorded.
 
-A second protected remote task will deliver the final fixes and exercise merged-
-head CI gating. Aggregate remote evidence is in remote-results.json.
+The second protected task also completed and merged (PR #2), delivering the final
+fixes. Branch CI, PR CI and merged-main CI passed; the queue observed merged-head
+CI before committing MERGED. Both remote tasks are MERGED with no NEEDS_HUMAN tasks.
+See remote-results.json. This verifies automatic continuation across two tasks,
+not weeks-long reliability.
+
+Native AO SCM initially returned SCM_UNAVAILABLE because the system GitHub CLI
+lacks `gh auth token`. Installing the checksum-verified official gh v2.102.0 only
+in the isolated runtime resolved authentication, using the existing login without
+copying credentials. A closed-PR claim then correctly returned PR_NOT_OPEN.
+See github-cli-provenance.json; native open-PR attachment will be checked while
+publishing final results. The GitHub adapter's live gates are independently proven.
 
 ## Remaining boundaries
 

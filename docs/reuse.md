@@ -67,7 +67,8 @@ For GitHub operation, set origin to the intended repository and configure:
 }
 ```
 
-These are top-level fields in policy.json. Authenticate `gh` outside the repository.
+These are top-level fields in policy.json. Authenticate a current `gh` outside the repository. AO needs `gh auth token`;
+very old gh releases can make native SCM unavailable even when gh api works.
 Install your actual `scripts/verify` in a GitHub Actions workflow named `verify`.
 Configure main to require `verify`, up-to-date branches and admin enforcement.
 Set required human/app approvals in GitHub if your organization requires them;
