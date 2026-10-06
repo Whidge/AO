@@ -1,10 +1,11 @@
 {
   "task": "TASK-001",
-  "status": "VERIFYING",
+  "status": "REVIEWING",
   "attempts": 1,
   "diagnostics": 0,
   "run_id": "272bdd22dc3d4174879ea4c47c735cbc",
   "base": "4dd883955acaa00c019751fad087273da9910ecc",
   "reason": "approved scoped Git/AO operation once",
-  "checkpoint_branch": "factory/task-001-272bdd22dc3d"
+  "checkpoint_branch": "factory/task-001-272bdd22dc3d",
+  "target": "c4d8d9755c780d46816aea569b67d82fcaca0c84"
 }
