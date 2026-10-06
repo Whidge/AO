@@ -1,6 +1,6 @@
 {
   "task": "TASK-002",
-  "status": "ACCEPTED",
+  "status": "PR_OPEN",
   "attempts": 1,
   "diagnostics": 0,
   "run_id": "26f8031cc6914f15bdf19ce31e60d31e",
@@ -21,5 +21,9 @@
       "cost_usd": null
     },
     "context_bytes": 10590
+  },
+  "pr": {
+    "number": 2,
+    "url": "https://github.com/Whidge/AO/pull/2"
   }
 }
