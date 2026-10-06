@@ -1,6 +1,6 @@
 {
   "task": "TASK-001",
-  "status": "PR_OPEN",
+  "status": "MERGED",
   "attempts": 1,
   "diagnostics": 0,
   "run_id": "272bdd22dc3d4174879ea4c47c735cbc",
@@ -25,5 +25,6 @@
   "pr": {
     "number": 1,
     "url": "https://github.com/Whidge/AO/pull/1"
-  }
+  },
+  "remote_merge_sha": "fcc8b511a4ea84f6f7a73f0698c19bd6c211c843"
 }
