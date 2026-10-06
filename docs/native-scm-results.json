@@ -1,0 +1,53 @@
+{
+  "session": "whidge-ao-live-2",
+  "pr": "https://github.com/Whidge/AO/pull/3",
+  "claim_succeeded": true,
+  "agent_resumed": false,
+  "branch_changed": false,
+  "takeover": false,
+  "facts": {
+    "sessionId": "whidge-ao-live-2",
+    "prs": [
+      {
+        "url": "https://github.com/Whidge/AO/pull/3",
+        "htmlUrl": "https://github.com/Whidge/AO/pull/3",
+        "number": 3,
+        "title": "Record verified portable AO workflow and protected merge results",
+        "state": "open",
+        "provider": "github",
+        "repo": "Whidge/AO",
+        "author": "Whidge",
+        "authorAvatarUrl": "https://avatars.githubusercontent.com/u/174260058?v=4",
+        "sourceBranch": "factory/final-results-20261006",
+        "targetBranch": "main",
+        "headSha": "1317761003e345e08ba0667c2394d1d057b422c9",
+        "additions": 210,
+        "deletions": 88,
+        "changedFiles": 5,
+        "ci": {
+          "state": "passing",
+          "failingChecks": [],
+          "autoInjectCI": true
+        },
+        "review": {
+          "decision": "none",
+          "hasUnresolvedHumanComments": false,
+          "unresolvedThreadCount": 0,
+          "unresolvedBy": []
+        },
+        "mergeability": {
+          "state": "mergeable",
+          "reasons": null,
+          "prUrl": "https://github.com/Whidge/AO/pull/3"
+        },
+        "stateChangedAt": "2026-10-06T21:06:04Z",
+        "createdAt": "2026-10-06T21:06:04Z",
+        "updatedAt": "2026-10-06T21:06:53.574744696Z",
+        "observedAt": "2026-10-06T21:06:53.574744696Z",
+        "ciObservedAt": "2026-10-06T21:06:53.574744696Z",
+        "reviewObservedAt": "2026-10-06T21:06:53.574744696Z"
+      }
+    ],
+    "linkedPrs": []
+  }
+}

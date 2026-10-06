@@ -1,7 +1,30 @@
 {
   "task": "TASK-002",
-  "status": "RUNNING",
+  "status": "MERGED",
   "attempts": 1,
   "diagnostics": 0,
-  "run_id": "26f8031cc6914f15bdf19ce31e60d31e"
+  "run_id": "26f8031cc6914f15bdf19ce31e60d31e",
+  "base": "d57c780acb848cce17d1aaf961d7076860f10ebd",
+  "reason": "approved scoped Git/AO operation once",
+  "checkpoint_branch": "factory/task-002-26f8031cc691",
+  "target": "466a957dac7572dabaca36917d9f596676dcd2fc",
+  "review": {
+    "verdict": "approved",
+    "findings": [],
+    "role": "independent-reviewer",
+    "sha": "466a957dac7572dabaca36917d9f596676dcd2fc",
+    "run_id": "b7366608f81d47cb96cedb286074d4bc",
+    "usage": {
+      "input_tokens": 56631,
+      "cached_input_tokens": 43008,
+      "output_tokens": 299,
+      "cost_usd": null
+    },
+    "context_bytes": 10590
+  },
+  "pr": {
+    "number": 2,
+    "url": "https://github.com/Whidge/AO/pull/2"
+  },
+  "remote_merge_sha": "ab543cd84971f6b79c1f3e12a8526a0165aad82e"
 }

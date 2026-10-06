@@ -67,7 +67,8 @@ For GitHub operation, set origin to the intended repository and configure:
 }
 ```
 
-These are top-level fields in policy.json. Authenticate `gh` outside the repository.
+These are top-level fields in policy.json. Authenticate a current `gh` outside the repository. AO needs `gh auth token`;
+very old gh releases can make native SCM unavailable even when gh api works.
 Install your actual `scripts/verify` in a GitHub Actions workflow named `verify`.
 Configure main to require `verify`, up-to-date branches and admin enforcement.
 Set required human/app approvals in GitHub if your organization requires them;
@@ -90,3 +91,8 @@ ephemeral prefix, so ignored bytecode cannot be planted in controller source.
 Builds that require checkout writes need an adapted verify command or a reviewed
 disposable container setup. The controller waits for required CI on the merged
 main SHA before continuing; the workflow must run on push as well as PR.
+
+For native AO PR display, attach a published PR with
+`ao session claim-pr SESSION-ID PR-URL --no-takeover`. This updates SCM metadata;
+it does not resume a worker. Keep current gh on the daemon's PATH. The external
+queue's protected merge checks operate even when native display is unavailable.
