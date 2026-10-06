@@ -328,7 +328,7 @@ def capsule(root, task, policy, *, review=False, base=None, evidence=None, feedb
                 parts.append(artifact)
                 manifest[name] = hashlib.sha256(path.read_bytes()).hexdigest()
     else:
-        parts.append("Run contract checks and ./scripts/verify. Commit scoped files and a checkpoint; do not publish unless project policy authorizes it.")
+        parts.append("Run contract checks and ./scripts/verify. Commit scoped files and a checkpoint. Do not push, create PRs or merge; the controller owns publication after independent review.")
     if feedback:
         parts.append("Controller feedback (artifact/check findings, not a worker transcript):\n" + feedback[:2000])
     text = "\n\n".join(parts) + "\n"

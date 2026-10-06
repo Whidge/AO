@@ -36,8 +36,8 @@ class AO:
             try:
                 detail = json.loads(exc.read(16000))
                 error = detail.get("error", detail)
-                code = error.get("code", str(exc.code))
-                message = error.get("message", "AO request failed")
+                code = error.get("code", str(exc.code)) if isinstance(error, dict) else detail.get("code", str(exc.code))
+                message = error.get("message", "AO request failed") if isinstance(error, dict) else detail.get("message", str(error))
             except (ValueError, AttributeError):
                 code, message = exc.code, "AO request failed"
             raise ProtocolError(f"AO {code}: {message}") from exc

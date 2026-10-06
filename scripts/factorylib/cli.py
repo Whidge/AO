@@ -541,8 +541,8 @@ def main(argv=None):
                       "agentConfig": {"permissions": policy["ao"]["permission"]},
                       "worker": {"agent": policy["routing"]["standard"]["harness"]},
                       "orchestrator": {"agent": policy["routing"]["strong"]["harness"]},
-                      "autoReview": False, "workersRequestReview": False,
                       "reviewers": [{"harness": policy["routing"]["review"]["harness"]}],
+                      "agentRules": "Workers implement, verify and commit a task checkpoint. Do not push branches, create PRs or merge: factory controller owns publication after independent review.",
                       "orchestratorRules": "Persist product/task decisions in Git. Load task-planning only for planning. Dispatch bounded contracts through scripts/factory. No transcript transfer."}
             result = ao.request("POST", "projects", {"projectId": args.project, "path": str(root),
                                                      "name": args.project, "config": config})
