@@ -1,0 +1,10 @@
+{
+  "task": "TASK-001",
+  "base": "4dd883955acaa00c019751fad087273da9910ecc",
+  "implementation_sha": "4dd883955acaa00c019751fad087273da9910ecc",
+  "next": "",
+  "changed": [
+    "examples/slug.py",
+    "tests/test_example_slug.py"
+  ]
+}
